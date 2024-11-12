@@ -1,0 +1,91 @@
+[
+  {
+    "id": "main",
+    "components": ["section"]
+  },
+  {
+    "id": "columns",
+    "components": []
+  },
+  {
+    "id": "column",
+    "components": ["text", "image", "button", "title"]
+  },
+  {
+    "id": "section",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "hero",
+      "cards",
+      "columns",
+      "accordion",
+      "table",
+      "search",
+      "video",
+      "carousel",
+      "tabs",
+      "fragment",
+      "embed",
+      "quote"
+    ]
+  },
+  {
+    "id": "cards",
+    "components": ["card"]
+  },
+  {
+    "id": "accordion",
+    "components": [
+      "accordion-item"
+    ]
+  },
+  {
+    "id": "table",
+    "components": [
+      "table-row"
+    ]
+  },
+  {
+    "id":"search",
+    "components":[]
+  },
+  {
+    "id":"video",
+    "components":[]
+  },
+  {
+    "id":"table-2-columns",
+    "components":["table-col-2"]
+  },
+  {
+    "id":"table-3-columns",
+    "components":["table-col-3"]
+  },
+  {
+    "id":"table-4-columns",
+    "components":["table-col-4"]
+  },
+  {
+    "id":"table-5-columns",
+    "components":["table-col-5"]
+  },
+  {
+    "id": "carousel",
+    "components": [
+      "carousel-item"
+    ]
+  },
+  {
+    "id": "tabs",
+    "components": [
+      "tabs-item"
+    ]
+  },
+  {
+    "id": "embed",
+    "components": []
+  }
+]
