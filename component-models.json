@@ -213,41 +213,138 @@
         "label": "Text",
         "valueType": "string"
       },
-	  {
-		  "component": "multiselect",
-		  "name": "multiselectgrouped",
-		  "label": "Multiselect field",
-		  "valueType": "string",
-		  "required": true,
-		  "maxSize": 2,
-		  "options": [
-			{
-			  "name": "Theme",
-			  "children": [
-				{ "name": "Light", "value": "light" },
-				{ "name": "Dark",  "value": "dark" }
-			  ]
-			},
-			{
-			  "name": "Type",
-			  "children": [
-				{ "name": "Alpha", "value": "alpha" },
-				{ "name": "Beta", "value": "beta" },
-				{ "name": "Gamma", "value": "gamma" }
-			  ]
-			}
-		]
-		},
-        {
-      "component": "multiselect",
-      "name": "multiselect",
-      "label": "Multi Select",
-      "valueType": "string",
-      "options": [
-        { "name": "Option 1", "value": "option1" },
-        { "name": "Option 2", "value": "option2" }
-      ]
-	}
+      {
+        "component": "multiselect",
+        "name": "multiselectgrouped",
+        "label": "Multiselect field",
+        "valueType": "string",
+        "required": true,
+        "maxSize": 2,
+        "options": [
+          {
+            "name": "Theme",
+            "children": [
+              {
+                "name": "Light",
+                "value": "light"
+              },
+              {
+                "name": "Dark",
+                "value": "dark"
+              }
+            ]
+          },
+          {
+            "name": "Type",
+            "children": [
+              {
+                "name": "Alpha",
+                "value": "alpha"
+              },
+              {
+                "name": "Beta",
+                "value": "beta"
+              },
+              {
+                "name": "Gamma",
+                "value": "gamma"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "multiselect",
+        "name": "multiselect",
+        "label": "Multi Select",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Option 1",
+            "value": "option1"
+          },
+          {
+            "name": "Option 2",
+            "value": "option2"
+          }
+        ]
+      },
+      {
+        "component": "radio-group",
+        "label": "Radio Group",
+        "name": "radio",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Option 1",
+            "value": "option1"
+          },
+          {
+            "name": "Option 2",
+            "value": "option2"
+          }
+        ]
+      },
+      {
+        "component": "select",
+        "label": "Select",
+        "name": "select",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Option 1",
+            "value": "option1"
+          },
+          {
+            "name": "Option 2",
+            "value": "option2"
+          }
+        ]
+      },
+      {
+        "component": "checkbox-group",
+        "label": "Checkbox Group",
+        "name": "checkbox",
+        "valueType": "string[]",
+        "options": [
+          {
+            "name": "Option 1",
+            "value": "option1"
+          },
+          {
+            "name": "Option 2",
+            "value": "option2"
+          }
+        ]
+      },
+      {
+        "component": "boolean",
+        "label": "Boolean",
+        "name": "boolean",
+        "valueType": "boolean"
+      },
+      {
+        "component": "tab",
+        "label": "Tab 1",
+        "name": "tab1"
+      },
+      {
+        "component": "text-input",
+        "label": "Text 1",
+        "name": "text1",
+        "valueType": "string"
+      },
+      {
+        "component": "tab",
+        "label": "Tab 2",
+        "name": "tab2"
+      },
+      {
+        "component": "text-input",
+        "label": "Text 2",
+        "name": "text2",
+        "valueType": "string"
+      }
     ]
   },
   {
@@ -285,34 +382,33 @@
         ]
       },
       {
-        "component":"select",
-        "name":"filter",
-        "label":"Columns",
-        "valueType":"string",
-        "value":"table",
-        "options":[
+        "component": "select",
+        "name": "filter",
+        "label": "Columns",
+        "valueType": "string",
+        "value": "table",
+        "options": [
           {
-            "name":"1 Column",
-            "value":"table"
+            "name": "1 Column",
+            "value": "table"
           },
           {
-            "name":"2 Columns",
-            "value":"table-2-columns"
+            "name": "2 Columns",
+            "value": "table-2-columns"
           },
           {
-            "name":"3 Columns",
-            "value":"table-3-columns"
+            "name": "3 Columns",
+            "value": "table-3-columns"
           },
           {
-            "name":"4 Columns",
-            "value":"table-4-columns"
+            "name": "4 Columns",
+            "value": "table-4-columns"
           },
           {
-            "name":"5 Columns",
-            "value":"table-5-columns"
+            "name": "5 Columns",
+            "value": "table-5-columns"
           }
         ]
-
       }
     ]
   },
