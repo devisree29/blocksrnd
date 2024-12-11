@@ -300,7 +300,13 @@
             "value": "option2"
           }
         ]
-      }     
+      },
+      {
+        "component": "boolean",
+        "label": "Boolean",
+        "name": "booleanfield",
+        "valueType": "boolean"
+      }      
     ]
   },
   {
