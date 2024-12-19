@@ -154,6 +154,51 @@
    ]
   },
   {
+    "id": "cogna-table",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "columns",
+        "value": "",
+        "label": "Columns"
+      },
+      {
+        "component": "text",
+        "valueType": "number",
+        "name": "rows",
+        "value": "",
+        "label": "Rows"
+      },
+      {
+      "component": "text",
+      "valueType": "string",
+      "name": "header",
+      "value": "",
+      "label": "Table Header"
+    },
+    {
+      "component": "richtext",
+      "valueType": "string",
+      "name": "description",
+      "value": "",
+      "label": "Table Description"
+    }
+   ]
+  },
+  {
+    "id": "cogna-table-item",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "content_text",
+        "value": "",
+        "label": "Table Item Content",
+        "valueType": "string"
+      }
+    ]
+  },  
+  {
     "id": "card",
     "fields": [
       {
