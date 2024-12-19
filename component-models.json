@@ -136,8 +136,22 @@
         "name": "rows",
         "value": "",
         "label": "Rows"
-      }
-    ]
+      },
+      {
+      "component": "text",
+      "valueType": "string",
+      "name": "header",
+      "value": "",
+      "label": "Table Header"
+    },
+    {
+      "component": "richtext",
+      "valueType": "string",
+      "name": "description",
+      "value": "",
+      "label": "Table Description"
+    }
+   ]
   },
   {
     "id": "card",
