@@ -97,14 +97,10 @@
           "plugins": {
             "xwalk": {
               "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
+                "resourceType": "core/franklin/components/columns/v1/columns",
                 "template": {
-                  "name": "Cogna Table",
-                  "filter": "cogna-table",
                   "columns": "2",
-                  "rows": "1",
-                  "header": "Table Header",
-                  "description": "Table Description"
+                  "rows": "1"
                 }
               }
             }
