@@ -5,8 +5,6 @@ export default function decorate(block) {
   const header = block.dataset.header || 'Default Header';
   const description = block.dataset.description || 'Default Description';
 
-  block.textContent = ''; // Clear the block content
-
   // Step 2: Create table container
   const tableContainer = document.createElement('div');
   tableContainer.className = 'cogna-table-container';
