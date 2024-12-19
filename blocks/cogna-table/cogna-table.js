@@ -1,15 +1,21 @@
 export default function decorate(block) {
-  // Step 1: Read data from the block
-  const rows = parseInt(block.dataset.rows, 10) || 3;
-  const columns = parseInt(block.dataset.columns, 10) || 3;
-  const header = block.dataset.header || 'Default Header';
-  const description = block.dataset.description || 'Default Description';
+  // Step 1: Read rows and columns from block dataset
+  const rows = parseInt(block.dataset.rows, 10) || 3; // Default to 3 rows
+  const columns = parseInt(block.dataset.columns, 10) || 3; // Default to 3 columns
+  const header = block.dataset.header || 'Default Header'; // Default table header
+  const description = block.dataset.description || 'Default Description'; // Default table description
 
-  // Step 2: Create table container
+  // Step 2: Capture the children before clearing the block
+  const children = [...block.children]; // Clone children into an array
+
+  // Clear block content after capturing its children
+  block.textContent = '';
+
+  // Step 3: Create table container
   const tableContainer = document.createElement('div');
   tableContainer.className = 'cogna-table-container';
 
-  // Step 3: Create table header and description
+  // Step 4: Add header and description
   const headerEl = document.createElement('div');
   headerEl.className = 'cogna-table-header';
   headerEl.innerHTML = `
@@ -18,27 +24,39 @@ export default function decorate(block) {
   `;
   tableContainer.appendChild(headerEl);
 
-  // Step 4: Create <table> element
+  // Step 5: Create table
   const table = document.createElement('table');
   table.className = 'cogna-table';
 
-  // Step 5: Create table rows and columns
+  // Step 6: Align children into rows and columns
+  let childIndex = 0;
+
   for (let i = 0; i < rows; i++) {
-    const row = document.createElement('tr'); // Use <tr> for rows
+    const tableRow = document.createElement('tr');
+    tableRow.className = 'cogna-table-row';
 
     for (let j = 0; j < columns; j++) {
-      const cell = i === 0 ? document.createElement('th') : document.createElement('td'); // Use <th> for the first row
-      cell.contentEditable = true; // Make cells editable
-      cell.textContent = i === 0 ? `Header ${j + 1}` : `R${i}C${j + 1}`; // Add header or row content
-      row.appendChild(cell);
+      const tableCell = i === 0 ? document.createElement('th') : document.createElement('td');
+      tableCell.className = 'cogna-table-cell';
+
+      // Assign content from block's children if available
+      if (children[childIndex]) {
+        tableCell.appendChild(children[childIndex]); // Move the child element into the cell
+        childIndex++;
+      } else {
+        // If no more children, leave the cell empty
+        tableCell.textContent = '';
+      }
+
+      tableRow.appendChild(tableCell);
     }
 
-    table.appendChild(row);
+    table.appendChild(tableRow);
   }
 
-  // Append table to the container
+  // Append the table to the container
   tableContainer.appendChild(table);
 
-  // Append container to the block
+  // Append the container to the block
   block.appendChild(tableContainer);
 }
