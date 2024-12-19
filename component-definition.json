@@ -92,21 +92,6 @@
           }
         },
         {
-          "title": "CognaTable",
-          "id": "cognaTable",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/columns/v1/columns",
-                "template": {
-                  "columns": "2",
-                  "rows": "1"
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Cogna Table",
           "id": "cogna-table",
           "plugins": {
