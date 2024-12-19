@@ -129,6 +129,9 @@
               "page": {
                 "resourceType": "core/franklin/components/block/v1/block/item",
                 "template": {
+                 "name": "Cogna Table Item",
+                 "model": "cogna-table-item",
+                 "content-text": "<p>Lorem ipsum</p>"                  
                 }
               }
             }
