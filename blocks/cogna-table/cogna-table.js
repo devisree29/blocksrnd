@@ -5,6 +5,9 @@ export default function decorate(block) {
   const header = block.dataset.header || 'Default Header';
   const description = block.dataset.description || 'Default Description';
 
+  block.textContent = '';
+
+
   // Step 2: Create table header and description
   const headerEl = document.createElement('div');
   headerEl.className = 'cogna-table-header';
