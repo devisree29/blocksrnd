@@ -9,7 +9,7 @@
   },
   {
     "id": "column",
-    "components": ["text", "image", "button", "title"]
+    "components": ["text"]
   },
   {
     "id": "section",
