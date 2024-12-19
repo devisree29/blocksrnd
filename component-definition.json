@@ -105,6 +105,34 @@
               }
             }
           }
+        },
+        {
+          "title": "Cogna Table",
+          "id": "cogna-table",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Cogna Table",
+                  "filter": "cogna-table"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Cogna Table Item",
+          "id": "cogna-table-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                }
+              }
+            }
+          }
         },        
         {
           "title": "Hero",
