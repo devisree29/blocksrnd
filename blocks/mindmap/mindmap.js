@@ -1,5 +1,4 @@
 export default async function decorate(block) {
-  // Helper function to recursively parse <ul> and <li> into a JSON structure
   function parseListToJSON(list) {
     const nodes = [];
     const items = [...list.children];
@@ -10,7 +9,6 @@ export default async function decorate(block) {
         children: [],
       };
 
-      // Check if this <li> has a nested <ul> (children)
       const nestedList = item.querySelector('ul');
       if (nestedList) {
         node.children = parseListToJSON(nestedList); // Recursively parse
@@ -22,40 +20,50 @@ export default async function decorate(block) {
     return nodes;
   }
 
-  // Find the <ul> in the block
-  const ul = block.querySelector('ul');
-  if (!ul) return; // If no list is present, exit
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
 
-  // Parse the <ul> into JSON structure
-  const mindMapData = parseListToJSON(ul);
-
-  // Create a container for the mind map
-  const mindMapContainer = document.createElement('div');
-  mindMapContainer.className = 'mind-map-container';
-
-  // Helper function to render the mind map recursively
-  function renderMindMap(node, container) {
+  function renderMindMap(node, container, branchColor = null) {
     const nodeElement = document.createElement('div');
     nodeElement.className = 'mind-map-node';
     nodeElement.textContent = node.text;
 
-    // Add the node element to the container
-    container.appendChild(nodeElement);
-
-    // If there are children, create a container for them
+    // Add branch container if children exist
     if (node.children && node.children.length > 0) {
       const branchContainer = document.createElement('div');
       branchContainer.className = 'mind-map-branch';
-      node.children.forEach((child) => renderMindMap(child, branchContainer));
+
+      // Assign a random color to this branch
+      const branchStyle = `2px solid ${branchColor || getRandomColor()}`;
+      branchContainer.style.borderLeft = branchStyle;
+
+      node.children.forEach((child) => {
+        // Pass the same branch color to all children
+        renderMindMap(child, branchContainer, branchColor || getRandomColor());
+      });
+
       container.appendChild(branchContainer);
     }
+
+    container.appendChild(nodeElement);
   }
 
-  // Render the parsed JSON as a mind map
+  const ul = block.querySelector('ul');
+  if (!ul) return;
+
+  const mindMapData = parseListToJSON(ul);
+
+  const mindMapContainer = document.createElement('div');
+  mindMapContainer.className = 'mind-map-container';
+
   mindMapData.forEach((node) => renderMindMap(node, mindMapContainer));
 
-  // Clear the block content and append the decorated mind map
   block.innerHTML = '';
   block.appendChild(mindMapContainer);
 }
-
