@@ -1,1 +1,22 @@
+.mind-map-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.mind-map-branch {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.mind-map-node {
+  padding: 10px 20px;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
 
