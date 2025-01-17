@@ -1,60 +1,49 @@
-/* Main container for the mind map */
-.mind-map-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 30px; /* Space between hierarchy levels */
-  position: relative;
-  margin: 20px;
-}
-
-/* Branch container for child nodes */
-.mind-map-branch {
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: center;
-  gap: 20px; /* Space between sibling nodes */
+  align-items: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+}
+
+#mind-map-block {
+  width: 100%;
+  height: 100%;
   position: relative;
 }
 
-/* Node styles */
-.mind-map-node {
-  padding: 10px 20px;
-  background-color: #f4f4f4;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  text-align: center;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+svg {
+  cursor: grab;
+}
+
+svg:active {
+  cursor: grabbing;
+}
+
+.node circle {
+  fill: lightblue;
+  stroke: steelblue;
+  stroke-width: 2px;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: fill 0.3s ease;
 }
 
-/* Node hover effects */
-.mind-map-node:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+.node circle:hover {
+  fill: orange;
 }
 
-/* Vertical connector (parent to child branch) */
-.mind-map-branch::before {
-  content: '';
-  position: absolute;
-  top: -15px;
-  left: 50%;
-  width: 2px;
-  height: 15px;
-  background-color: #ccc;
-  transform: translateX(-50%);
+.node text {
+  font-size: 12px;
+  fill: #333;
+  font-family: Arial, sans-serif;
 }
 
-/* Horizontal connector (siblings within a branch) */
-.mind-map-branch::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: #ccc;
-  z-index: -1;
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 2px;
+  stroke-dasharray: 2, 2;
 }
