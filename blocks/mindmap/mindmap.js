@@ -1,22 +1,20 @@
-import * as d3 from 'https://d3js.org/d3.v7.min.js';
-
-// Debugging log to ensure D3.js is loaded
+// Debugging: Ensure D3.js is loaded globally
 console.log('D3.js loaded:', d3);
 
-// Function to parse nested <ul> and <li> into a JSON structure
+// Function to parse nested <ul> and <li> into JSON
 function parseListToJSON(list) {
   const nodes = [];
   const items = [...list.children];
 
   items.forEach((item) => {
     const node = {
-      text: item.firstChild.textContent.trim(), // Get the text content
+      text: item.firstChild.textContent.trim(),
       children: [],
     };
 
-    const nestedList = item.querySelector('ul'); // Check for nested <ul>
+    const nestedList = item.querySelector('ul');
     if (nestedList) {
-      node.children = parseListToJSON(nestedList); // Recursively parse children
+      node.children = parseListToJSON(nestedList);
     }
 
     nodes.push(node);
@@ -27,79 +25,63 @@ function parseListToJSON(list) {
 
 // Main function to decorate the mind map block
 export default async function decorate(block) {
-  // Locate the <ul> in the block
   const ul = block.querySelector('ul');
-  if (!ul) return; // Exit if no <ul> found
+  if (!ul) {
+    console.error('No <ul> found in the block.');
+    return;
+  }
 
-  // Parse the <ul> into a JSON structure
   const mindMapData = {
-    text: "Root",
+    text: 'Root',
     children: parseListToJSON(ul),
   };
 
-  // Set up SVG dimensions
   const width = block.clientWidth || 800;
   const height = block.clientHeight || 600;
 
-  // Clear block content and create an SVG container
-  block.innerHTML = '';
-  const svg = d3.select(block)
-    .append('svg')
-    .attr('width', width)
-    .attr('height', height)
-    .call(
-      d3.zoom().on('zoom', (event) => {
-        g.attr('transform', event.transform);
-      })
-    )
-    .append('g');
+  block.innerHTML = ''; // Clear block content
 
-  // Create a tree layout
-  const tree = d3.tree().size([height, width - 200]);
+  try {
+    const svg = d3.select(block)
+      .append('svg')
+      .attr('width', width)
+      .attr('height', height)
+      .call(
+        d3.zoom().on('zoom', (event) => {
+          g.attr('transform', event.transform);
+        })
+      )
+      .append('g');
 
-  // Convert the JSON data into a hierarchy
-  const root = d3.hierarchy(mindMapData);
+    const tree = d3.tree().size([height, width - 200]);
+    const root = d3.hierarchy(mindMapData);
 
-  // Generate the tree layout
-  tree(root);
+    tree(root);
 
-  // Add links (connections between nodes)
-  svg.selectAll('.link')
-    .data(root.links())
-    .enter()
-    .append('path')
-    .attr('class', 'link')
-    .attr('d', d3.linkHorizontal()
-      .x((d) => d.y)
-      .y((d) => d.x));
+    svg.selectAll('.link')
+      .data(root.links())
+      .enter()
+      .append('path')
+      .attr('class', 'link')
+      .attr('d', d3.linkHorizontal()
+        .x((d) => d.y)
+        .y((d) => d.x));
 
-  // Add nodes
-  const node = svg.selectAll('.node')
-    .data(root.descendants())
-    .enter()
-    .append('g')
-    .attr('class', 'node')
-    .attr('transform', (d) => `translate(${d.y},${d.x})`)
-    .on('click', (event, d) => {
-      // Toggle children on click
-      if (d.children) {
-        d._children = d.children;
-        d.children = null;
-      } else {
-        d.children = d._children;
-        d._children = null;
-      }
-      decorate(block); // Re-render the tree
-    });
+    const node = svg.selectAll('.node')
+      .data(root.descendants())
+      .enter()
+      .append('g')
+      .attr('class', 'node')
+      .attr('transform', (d) => `translate(${d.y},${d.x})`);
 
-  // Add circles to represent nodes
-  node.append('circle')
-    .attr('r', 5);
+    node.append('circle').attr('r', 5);
 
-  // Add labels for nodes
-  node.append('text')
-    .attr('dy', 3)
-    .attr('x', (d) => (d.children ? -10 : 10))
-    .style('text-anchor', (d) => (d.children ? 'end' : 'start'))
-    .text((d) => d.data.text);
+    node.append('text')
+      .attr('dy', 3)
+      .attr('x', (d) => (d.children ? -10 : 10))
+      .style('text-anchor', (d) => (d.children ? 'end' : 'start'))
+      .text((d) => d.data.text);
+  } catch (error) {
+    console.error('Error rendering the mind map:', error);
+  }
 }
