@@ -1,5 +1,7 @@
-// Import D3.js library
 import * as d3 from 'https://d3js.org/d3.v7.min.js';
+
+// Debugging log to ensure D3.js is loaded
+console.log('D3.js loaded:', d3);
 
 // Function to parse nested <ul> and <li> into a JSON structure
 function parseListToJSON(list) {
