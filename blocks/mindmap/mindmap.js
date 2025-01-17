@@ -1,3 +1,6 @@
+// Import D3.js library
+import * as d3 from 'https://d3js.org/d3.v7.min.js';
+
 // Function to parse nested <ul> and <li> into a JSON structure
 function parseListToJSON(list) {
   const nodes = [];
@@ -5,13 +8,13 @@ function parseListToJSON(list) {
 
   items.forEach((item) => {
     const node = {
-      text: item.firstChild.textContent.trim(),
+      text: item.firstChild.textContent.trim(), // Get the text content
       children: [],
     };
 
-    const nestedList = item.querySelector('ul');
+    const nestedList = item.querySelector('ul'); // Check for nested <ul>
     if (nestedList) {
-      node.children = parseListToJSON(nestedList);
+      node.children = parseListToJSON(nestedList); // Recursively parse children
     }
 
     nodes.push(node);
@@ -20,10 +23,11 @@ function parseListToJSON(list) {
   return nodes;
 }
 
-// Main function to render the mind map
-function decorate(block) {
+// Main function to decorate the mind map block
+export default async function decorate(block) {
+  // Locate the <ul> in the block
   const ul = block.querySelector('ul');
-  if (!ul) return;
+  if (!ul) return; // Exit if no <ul> found
 
   // Parse the <ul> into a JSON structure
   const mindMapData = {
@@ -31,40 +35,41 @@ function decorate(block) {
     children: parseListToJSON(ul),
   };
 
-  const width = block.clientWidth;
-  const height = block.clientHeight;
+  // Set up SVG dimensions
+  const width = block.clientWidth || 800;
+  const height = block.clientHeight || 600;
 
-  // Clear block content
+  // Clear block content and create an SVG container
   block.innerHTML = '';
-
-  // Add SVG container
   const svg = d3.select(block)
     .append('svg')
     .attr('width', width)
     .attr('height', height)
-    .call(d3.zoom().on('zoom', (event) => {
-      g.attr('transform', event.transform);
-    }))
+    .call(
+      d3.zoom().on('zoom', (event) => {
+        g.attr('transform', event.transform);
+      })
+    )
     .append('g');
 
-  // Tree layout
+  // Create a tree layout
   const tree = d3.tree().size([height, width - 200]);
 
-  // Convert JSON data to hierarchy
+  // Convert the JSON data into a hierarchy
   const root = d3.hierarchy(mindMapData);
 
-  // Generate tree layout
+  // Generate the tree layout
   tree(root);
 
-  // Add links
+  // Add links (connections between nodes)
   svg.selectAll('.link')
     .data(root.links())
     .enter()
     .append('path')
     .attr('class', 'link')
     .attr('d', d3.linkHorizontal()
-      .x(d => d.y)
-      .y(d => d.x));
+      .x((d) => d.y)
+      .y((d) => d.x));
 
   // Add nodes
   const node = svg.selectAll('.node')
@@ -72,9 +77,9 @@ function decorate(block) {
     .enter()
     .append('g')
     .attr('class', 'node')
-    .attr('transform', d => `translate(${d.y},${d.x})`)
+    .attr('transform', (d) => `translate(${d.y},${d.x})`)
     .on('click', (event, d) => {
-      // Expand/collapse nodes
+      // Toggle children on click
       if (d.children) {
         d._children = d.children;
         d.children = null;
@@ -82,23 +87,17 @@ function decorate(block) {
         d.children = d._children;
         d._children = null;
       }
-      decorate(block); // Re-render
+      decorate(block); // Re-render the tree
     });
 
-  // Add circles to nodes
+  // Add circles to represent nodes
   node.append('circle')
     .attr('r', 5);
 
-  // Add labels
+  // Add labels for nodes
   node.append('text')
     .attr('dy', 3)
-    .attr('x', d => d.children ? -10 : 10)
-    .style('text-anchor', d => d.children ? 'end' : 'start')
-    .text(d => d.data.text);
+    .attr('x', (d) => (d.children ? -10 : 10))
+    .style('text-anchor', (d) => (d.children ? 'end' : 'start'))
+    .text((d) => d.data.text);
 }
-
-// Execute mind map rendering
-document.addEventListener('DOMContentLoaded', () => {
-  const block = document.getElementById('mind-map-block');
-  decorate(block);
-});
